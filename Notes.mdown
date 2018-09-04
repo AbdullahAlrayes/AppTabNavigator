@@ -1,0 +1,159 @@
+1.  Install `react-navigation`
+
+        yarn add react-navigation
+
+2.  import `createBottomTabNavigator` into the app as following
+
+    import { createBottomTabNavigator } from "react-navigation";
+
+3.  Create const `AppTabNavigator` as following:
+
+        const AppTabNavigator = createBottomTabNavigator({
+        Home: HomeScreen,
+        Setting: SettingScreen
+        });
+
+4.  In the above you are giving names for every screen you want it to be in the bottom tab navigator.
+
+        Home => is just a reference name for HomeScreen that will be used for `onPress` function
+        Setting => is just a reference name for SettingScreent that will be used for `onPress` function
+
+5.  Add AppTabNavigator to the render as following
+
+        export default class App extends React.Component {
+        render() {
+            return <AppTabNavigator />;
+        }
+        }
+
+6.  In order to add icon in the bottom tab bar, you can add the following
+
+        const AppTabNavigator = createBottomTabNavigator({
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+            tabBarLabel: "Home",
+            tabBarIcon: ({ tintColor }) => <Icon name="ios-home" size={24} />
+            }
+        }
+        });
+
+7.  There are more options and features you can add it to the TabNavigator as following
+
+        {
+            initialRouteName: "Settings", //What tab you want to be landing page or first page
+            order: ["Settings", "Home"], //What order you want the tab to be?
+            navigationOptions: {
+            tabBarVisible: true //Hide or show tab bar
+            }
+        }
+
+8.  Above should be added after referencing the screen as following:
+
+        const AppTabNavigator = createBottomTabNavigator(
+        {
+            Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                tabBarLabel: "Home",
+                tabBarIcon: ({ tintColor }) => <Icon name="ios-home" size={24} />
+            }
+            },
+            Settings: {
+            screen: SettingScreen,
+            navigationOptions: {
+                tabBarLabel: "Settings",
+                tabBarIcon: ({ tintColor }) => <Icon name="ios-settings" size={24} />
+            }
+            }
+        },
+        {
+            initialRouteName: "Settings",
+            order: ["Settings", "Home"],
+            navigationOptions: {
+            tabBarVisible: true
+            }
+        }
+        );
+
+9.  You also have some options on tabs navigator for example changing colors based on active not active as following
+
+
+        {
+            tabBarOptions: {
+            activeTintColor: "blue",
+            inactiveTinitColor: "grey"
+        }
+
+10. Make sure you add `color` props to icon to get full effect of tintColor option as following
+
+        Settings: {
+            screen: SettingScreen,
+            navigationOptions: {
+                tabBarLabel: "Settings",
+                tabBarIcon: ({ tintColor }) => (
+                <Icon name="ios-settings" color={tintColor} size={24} />
+                )
+            }
+            }
+
+11. Final is the code for Tab Navigator
+
+        import React from "react";
+        import { StyleSheet, Text, View } from "react-native";
+        import { createBottomTabNavigator } from "react-navigation";
+        import Icon from "react-native-vector-icons/Ionicons";
+
+        import HomeScreen from "./Component/HomeScreen";
+        import SettingScreen from "./Component/Settings";
+
+        export default class App extends React.Component {
+        render() {
+            return <AppTabNavigator />;
+        }
+        }
+
+        const AppTabNavigator = createBottomTabNavigator(
+        {
+            Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                tabBarLabel: "Home",
+                tabBarIcon: ({ tintColor }) => (
+                <Icon name="ios-home" color={tintColor} size={24} />
+                )
+            }
+            },
+            Settings: {
+            screen: SettingScreen,
+            navigationOptions: {
+                tabBarLabel: "Settings",
+                tabBarIcon: ({ tintColor }) => (
+                <Icon name="ios-settings" color={tintColor} size={24} />
+                )
+            }
+            }
+        },
+        {
+            initialRouteName: "Settings",
+            order: ["Settings", "Home"],
+            navigationOptions: {
+            tabBarVisible: true
+            }
+        },
+        {
+            tabBarOptions: {
+            activeTintColor: "blue",
+            inactiveTinitColor: "grey"
+            }
+        }
+        );
+
+        const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: "#fff",
+            alignItems: "center",
+            justifyContent: "center"
+        }
+        });
